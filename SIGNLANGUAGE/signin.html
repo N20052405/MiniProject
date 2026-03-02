@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In - Sign Language Detection</title>
+<style>
+    /* ... (Your CSS styles here, unchanged) ... */
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #ffffff;
+        display: flex;
+        height: 100vh;
+    }
+
+    .container {
+        display: flex;
+        width: 100%;
+    }
+
+    /* Welcome label top left */
+    .welcome {
+        position: absolute;
+        top: 20px;
+        left: 25px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #6a0dad;
+        letter-spacing: 1px;
+        animation: fadeIn 1.2s ease-in-out;
+    }
+
+    /* Left Section */
+    .left {
+        width: 45%;
+        background: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+    }
+
+    .form-box {
+        width: 70%;
+        text-align: center;
+    }
+
+    .title {
+        color: #6a0dad;
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: 25px;
+        animation: fadeIn 1.2s ease-in-out;
+    }
+
+    input {
+        width: 100%;
+        padding: 14px;
+        margin: 12px 0;
+        border: 2px solid #cfa7ff;
+        border-radius: 6px;
+        font-size: 16px;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        background: #6a0dad;
+        border: none;
+        color: white;
+        font-size: 18px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #540896;
+    }
+
+    /* Right Section */
+    .right {
+        width: 55%;
+        background: linear-gradient(135deg, #6a0dad, #9a50ff);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .right h1 {
+        color: #ffffff;
+        font-size: 38px;
+        font-weight: bold;
+        z-index: 2;
+        animation: fadeIn 2s ease-in-out;
+    }
+
+    /* Circles Style */
+    .circle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.12);
+        backdrop-filter: blur(3px);
+        animation: float 5s infinite ease-in-out;
+    }
+
+    .circle.big {width: 360px; height: 360px; top: -70px; right: -60px;}
+    .circle.mid {width: 230px; height: 230px; bottom: 40px; left: 40px; animation-delay: 0.6s;}
+    .circle.small {width: 150px; height: 150px; bottom: 150px; right: 30px; animation-delay: 1.2s;}
+    .circle.ex1 {width: 110px; height: 110px; top: 120px; right: 150px; animation-delay: 1.8s;}
+    .circle.ex2 {width: 90px; height: 90px; bottom: 70px; right: 180px; animation-delay: 2.4s;}
+    .circle.ex3 {width: 130px; height: 130px; top: 40px; left: 90px; animation-delay: 3s;}
+
+    /* Animations */
+    @keyframes float {
+        0%,100% {transform: translateY(0px);}
+        50% {transform: translateY(-25px);}
+    }
+
+    @keyframes fadeIn {
+        0% {opacity: 0; transform: translateY(10px);}
+        100% {opacity: 1; transform: translateY(0);}
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="welcome">Welcome</div>
+
+    <div class="left">
+        <div class="form-box">
+            <h2 class="title">Sign In</h2>
+            
+            <form action="{{ url_for('home') }}" method="get">
+                <input type="email" placeholder="User Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Sign In</button>
+            </form>
+            
+        </div>
+    </div>
+
+    <div class="right">
+        <div class="circle big"></div>
+        <div class="circle mid"></div>
+        <div class="circle small"></div>
+        <div class="circle ex1"></div>
+        <div class="circle ex2"></div>
+        <div class="circle ex3"></div>
+
+        <h1>Sign Language Detection</h1>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Sign Language Detection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #6A0DAD;
+            --light-purple: #A020F0;
+            --dark-purple: #4B0082;
+            --text-dark: #333;
+            --text-light: #f4f4f4;
+            --background-white: #ffffff;
+            --background-grey: #f8f8f8;
+            --border-light: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header / Navigation Bar --- */
+        .header {
+            background-color: var(--background-white);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-light);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--primary-purple);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .logo-icon {
+            width: 30px;
+            height: 30px;
+            background-color: var(--light-purple);
+            border-radius: 5px;
+            margin-right: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--background-white);
+            font-size: 1.2em;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-purple);
+        }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--light-purple) 100%);
+            color: var(--text-light);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top left, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+            pointer-events: none;
+        }
+        
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at bottom right, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+            pointer-events: none;
+        }
+
+
+        .hero-content h1 {
+            font-size: 3.2em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.2em;
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            opacity: 0.9;
+        }
+
+        .hero-buttons .button {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .hero-buttons .button.primary {
+            background-color: var(--background-white);
+            color: var(--primary-purple);
+            border: 2px solid var(--background-white);
+        }
+
+        .hero-buttons .button.primary:hover {
+            background-color: var(--primary-purple);
+            color: var(--background-white);
+            border-color: var(--background-white);
+        }
+
+        .hero-buttons .button.secondary {
+            background-color: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--background-white);
+        }
+
+        .hero-buttons .button.secondary:hover {
+            background-color: var(--background-white);
+            color: var(--primary-purple);
+        }
+
+        .hero-stats {
+            margin-top: 60px;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+
+        .hero-stats .stat-item {
+            text-align: center;
+        }
+
+        .hero-stats .stat-item .number {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--background-white);
+        }
+
+        .hero-stats .stat-item .label {
+            font-size: 1em;
+            color: var(--text-light);
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        /* --- Section Titles --- */
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin: 60px 0 40px 0;
+            color: var(--dark-purple);
+        }
+
+        /* --- How It Works Section --- */
+        .how-it-works-section {
+            padding: 80px 0;
+            background-color: var(--background-grey);
+        }
+
+        .how-it-works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .step-card {
+            background-color: var(--background-white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .step-card .icon-number {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-purple);
+            border-radius: 50%;
+            font-size: 1.8em;
+            font-weight: 600;
+            color: var(--text-light);
+            margin: 0 auto 20px auto;
+        }
+
+        .step-card h3 {
+            font-size: 1.4em;
+            color: var(--primary-purple);
+            margin-bottom: 15px;
+        }
+
+        .step-card p {
+            font-size: 0.95em;
+            color: #555;
+        }
+
+        /* --- Powerful Features Section --- */
+        .features-section {
+            padding: 80px 0;
+            background-color: var(--background-white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--background-grey);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+        }
+
+        .feature-card .icon {
+            font-size: 2.5em;
+            color: var(--primary-purple);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .feature-card .icon-bg-shape {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 80px;
+            height: 80px;
+            background-color: rgba(106, 13, 173, 0.1);
+            border-radius: 20%;
+            transform: rotate(20deg);
+            z-index: 1;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3em;
+            color: var(--dark-purple);
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .icon-camera::before { content: '📷'; }
+        .icon-chart::before { content: '📈'; }
+        .icon-code::before { content: '💻'; }
+        .icon-hand::before { content: '👋'; }
+        .icon-brain::before { content: '🧠'; }
+        .icon-gesture::before { content: '✋'; }
+
+        /* --- Footer --- */
+        .footer {
+            background-color: var(--dark-purple);
+            color: var(--text-light);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .footer p {
+            margin: 0;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container navbar">
+            <a href="/" class="logo">
+                <span class="logo-icon">SLD</span> 
+                Sign Language Detection
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="/detector">Live Detection</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="container hero-content">
+            <h1>Revolutionizing Communication with <br>AI-Powered Sign Language Detection</h1>
+            <p>
+                Sign Language Detection uses advanced machine learning and computer vision to
+                interpret sign language in real-time, breaking down communication
+                barriers for the deaf and hard-of-hearing community.
+            </p>
+            <div class="hero-buttons">
+                <a href="/detector" class="button primary">Start Detection</a>
+            
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="number">85%</div>
+                    <div class="label">Accuracy</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">20+</div>
+                    <div class="label">Gestures</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">Real-time</div>
+                    <div class="label">Processing</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="how-it-works-section">
+        <h2 class="section-title">How It Works</h2>
+        <div class="container how-it-works-grid">
+            <div class="step-card">
+                <div class="icon-number">1</div>
+                <h3>Capture</h3>
+                <p>Position yourself in front of your webcam and perform sign language gestures naturally.</p>
+            </div>
+            <div class="step-card">
+                <div class="icon-number">2</div>
+                <h3>Process</h3>
+                <p>Mediapipe Holistic extracts 3D keypoints from your hands, face, and body pose in real-time.</p>
+            </div>
+            <div class="step-card">
+                <div class="icon-number">3</div>
+                <h3>Analyze</h3>
+                <p>Our LSTM neural network processes the sequence of keypoints to recognize the sign language gestures.</p>
+            </div>
+            <div class="step-card">
+                <div class="icon-number">4</div>
+                <h3>Interpret</h3>
+                <p>The detected gestures are translated into text or speech, enabling seamless communication.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <h2 class="section-title">Powerful Features</h2>
+        <div class="container features-grid">
+            <div class="feature-card">
+                <span class="icon-bg-shape"></span>
+                <div class="icon icon-hand"></div>
+                <h3>Real-time Processing</h3>
+                <p>Our advanced AI processes sign language gestures in real-time with minimal latency, enabling fluid conversations.</p>
+            </div>
+            <div class="feature-card">
+                <span class="icon-bg-shape"></span>
+                <div class="icon icon-brain"></div>
+                <h3>Deep Learning Model</h3>
+                <p>Powered by LSTM neural networks trained on thousands of sign language samples for exceptional accuracy.</p>
+            </div>
+            <div class="feature-card">
+                <span class="icon-bg-shape"></span>
+                <div class="icon icon-gesture"></div>
+                <h3>Multiple Gestures</h3>
+                <p>Recognizes a wide vocabulary of signs including greetings, common phrases, and essential communication.</p>
+            </div>
+            <div class="feature-card">
+                <span class="icon-bg-shape"></span>
+                <div class="icon icon-camera"></div>
+                <h3>Webcam Integration</h3>
+                <p>Works with any standard webcam - no special hardware required for accessible communication.</p>
+            </div>
+            <div class="feature-card">
+                <span class="icon-bg-shape"></span>
+                <div class="icon icon-chart"></div>
+                <h3>Performance Analytics</h3>
+                <p>Track your progress with detailed analytics on recognition accuracy and improvement over time.</p>
+            </div>
+            <div class="feature-card">
+                <span class="icon-bg-shape"></span>
+                <div class="icon icon-code"></div>
+                <h3>Developer Friendly</h3>
+                <p>Easy-to-use API and comprehensive documentation for developers to build upon our technology.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; Sign Language Detection</p>
+        </div>
+    </footer>
+</body>
+</html>

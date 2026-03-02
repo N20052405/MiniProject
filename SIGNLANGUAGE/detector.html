@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Detector - Sign Language Detection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #6A0DAD;
+            --dark-purple: #4B0082;
+            --text-dark: #333;
+            --background-white: #ffffff;
+            --background-grey: #f8f8f8;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: var(--background-white);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-light);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .navbar .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--primary-purple);
+            text-decoration: none;
+        }
+
+        /* --- Detector Section --- */
+        .detector-section {
+            flex-grow: 1;
+            padding: 50px 20px;
+            text-align: center;
+            background-color: var(--background-grey);
+        }
+
+        .video-feed-container {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: var(--text-dark);
+            border: 5px solid var(--primary-purple);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* This image tag is key! It receives the video stream */
+        .video-feed-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .prediction-box {
+            background-color: var(--primary-purple);
+            color: var(--background-white);
+            padding: 15px 30px;
+            margin-top: 20px;
+            border-radius: 8px;
+            display: inline-block;
+            font-size: 2em;
+            font-weight: 600;
+        }
+
+        .detector-info p {
+            color: #666;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
+        /* --- Footer (Reused) --- */
+        .footer {
+            background-color: var(--dark-purple);
+            color: var(--background-white);
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="navbar">
+            <a href="/" class="logo">
+                <span style="background-color: var(--light-purple); border-radius: 5px; padding: 5px; color: var(--background-white); margin-right: 10px;">SLD</span> 
+                Sign Language Detection
+            </a>
+            <nav>
+                <ul class="nav-links" style="list-style: none; display: flex; gap: 30px;">
+                    <li><a href="/" style="color: var(--text-dark); text-decoration: none;">Home</a></li>
+                    <li><a href="#" style="color: var(--text-dark); text-decoration: none;">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="detector-section">
+        <h2>Live Sign Recognition 🌐</h2>
+        <div class="detector-info">
+            <p>Make a sign in front of your webcam. The predicted sign will appear on the video feed.</p>
+        </div>
+
+        <div class="video-feed-container">
+            <img src="{{ url_for('video_feed') }}" alt="Webcam Feed" id="videoFeed">
+        </div>
+
+        <div class="prediction-box">
+            Prediction: Live on Feed
+        </div>
+
+    </section>
+
+    <footer class="footer">
+        <p>&copy; Real-Time Model Active.</p>
+    </footer>
+
+</body>
+</html>
